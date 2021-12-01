@@ -9,7 +9,7 @@ section .text
 push rbp
 mov rbp, rsp
 
-    mov eax, rdi
+    mov eax, [rdi]
     mov rcx, eax
     mov rbx, rcx
     mov r10, 0
@@ -44,7 +44,7 @@ section .text
 push rbp
 mov rbp, rsp
 
-    mov eax, rdi
+    mov eax, [rdi]
     mov rcx, eax
     mov rbx, rcx
     mov r10, 0
@@ -56,7 +56,7 @@ mov rbp, rsp
     cmp rcx, eax
     jge .return_second
 
-    add r11, 8
+    add r11, 4
     add r10, rdi, r11
     inc rcx
 .return_second:
@@ -79,7 +79,7 @@ section .text
 push rbp
 mov rbp, rsp
 
-    mov eax, rdi
+    mov eax, [rdi]
     mov rcx, eax
     mov r10, 0
     mov r11, 0
@@ -109,7 +109,7 @@ push rbp
 mov rbp, rsp
 
     ; В rdi адрес фигуры
-    mov eax, rdi
+    mov eax, [rdi]
     cmp eax, Square
     je .averageSquare
     cmp eax, Triangle
@@ -126,7 +126,8 @@ mov rbp, rsp
     jmp     .return
 .averageTriangle:
     ; Вычисление среднего значения треугольной матрицы
-    add     rdi, 4
+    ; 8, так как в в треугольной мы храним как размер, так и шаг
+    add     rdi, 8
     call    AverageTriangle
     jmp     .return
 .averageDiagonal:
